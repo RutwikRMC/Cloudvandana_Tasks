@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Customer Survey Form</h1>
+        <form id="surveyForm" onsubmit="return submitForm()">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label>Is this your first time using our products & service?</label>
+                <input type="radio" id="firstTimeYes" name="firstTime" value="Yes"> <label
+                    for="firstTimeYes">Yes</label>
+                <input type="radio" id="firstTimeNo" name="firstTime" value="No"> <label for="firstTimeNo">No</label>
+            </div>
+
+            <div class="form-group">
+                <label>Would you recommend us to your friends and colleagues?</label>
+                <input type="radio" id="recommendYes" name="recommend" value="Yes"> <label
+                    for="recommendYes">Yes</label>
+                <input type="radio" id="recommendNo" name="recommend" value="No"> <label for="recommendNo">No</label>
+            </div>
+
+            <div class="form-group">
+                <label for="satisfaction">How satisfied are you with our company overall?</label>
+                <select id="satisfaction" required>
+                    <option value="Satisfied">Satisfied</option>
+                    <option value="Undecided">Undecided</option>
+                    <option value="Unsatisfied">Unsatisfied</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="suggestion">Do you have any suggestions to improve our service?</label>
+                <textarea id="suggestion" rows="4"></textarea>
+            </div>
+
+            <button type="submit">SUBMIT</button>
+        </form>
+    </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Survey Form Submission</h2>
+            <div id="popup-content"></div>
+        </div>
+    </div>
+
+    <script>
+        function submitForm() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const firstTime = document.querySelector('input[name="firstTime"]:checked').value;
+            const recommend = document.querySelector('input[name="recommend"]:checked').value;
+            const satisfaction = document.getElementById("satisfaction").value;
+            const suggestion = document.getElementById("suggestion").value;
+
+           
+            const popupContent = `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>First Time:</strong> ${firstTime}</p>
+        <p><strong>Recommend:</strong> ${recommend}</p>
+        <p><strong>Satisfaction:</strong> ${satisfaction}</p>
+        <p><strong>Suggestion:</strong> ${suggestion}</p>
+    `;
+
+            document.getElementById("popup-content").innerHTML = popupContent;
+            document.getElementById("popup").style.display = "block";
+
+            // Reset the form
+            resetForm();
+
+            return false;
+        }
+
+        function resetForm() {
+            document.getElementById("surveyForm").reset();
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+    </script>
+</body>
+
+</html>
